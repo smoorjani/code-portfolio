@@ -1,0 +1,9 @@
+DROP TABLE IF EXISTS QuestionAnswer;
+
+CREATE TABLE QuestionAnswer(
+	qid SERIAL PRIMARY KEY,
+    question TEXT UNIQUE NOT NULL,
+    answer TEXT NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
