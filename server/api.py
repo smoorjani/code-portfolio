@@ -47,7 +47,7 @@ def get_question():
         if data:
             data = json.loads(data.decode("utf-8").replace("'", '"'))
             question = data['question']
-            answer = get_answer(question)[0]
+            answer = get_answer(question)
 
             if not answer:
                 model_output = answer_question(nlp, question)
@@ -58,7 +58,9 @@ def get_question():
                 if not answer:
                     return {'answer': 'Sorry, I can\'t answer that.'}
 
-            return {'answer': answer}
+                return {'answer': answer}
+
+            return {'answer': answer[0]}
         return "Invalid data passed."
     return "Use POST to communicate with this endpoint."
 
