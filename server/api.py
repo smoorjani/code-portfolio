@@ -3,12 +3,19 @@
 import json
 from flask_cors import CORS
 from flask import Flask, request
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 
 from .db.db_utils import PostgresEngine
 from .qa_model.model import get_pipeline, answer_question
 from .qa_model.constants import MODEL_NAME
 
 app = Flask(__name__)
+limiter = Limiter(
+    app,
+    key_func=get_remote_address,
+    default_limits=["2000 per day", "100 per hour"]
+)
 CORS(app)
 
 nlp = get_pipeline(MODEL_NAME)

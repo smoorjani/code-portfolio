@@ -1,5 +1,5 @@
 import { Button, Flex, Text } from "@chakra-ui/react";
-import { Formik, Form } from "formik";
+import { Formik, Form, setIn } from "formik";
 import { InputField } from "../components/InputField";
 import React, { useState } from "react";
 import { Container } from "../components/Container";
@@ -12,6 +12,7 @@ import axios from "axios";
 
 const About = () => {
   const [answer, setAnswer] = useState("");
+  const [isInvalid, setIsInvalid] = useState(false);
 
   return (
     <Container height="100vh">
@@ -24,6 +25,12 @@ const About = () => {
           <Formik
             initialValues={{ question: "" }}
             onSubmit={async (values) => {
+              if (values["question"] === "") {
+                setIsInvalid(true);
+                return;
+              }
+
+              setIsInvalid(false);
               axios
                 .post(`http://127.0.0.1:5000/get-question`, {
                   question: values["question"],
@@ -38,6 +45,8 @@ const About = () => {
               <Form>
                 <InputField
                   name="question"
+                  maxH={80}
+                  isInvalid={isInvalid}
                   placeholder="Ask your question here..."
                   textarea={true}
                   width="100%"
@@ -46,6 +55,7 @@ const About = () => {
                   mt={4}
                   width="100%"
                   isLoading={isSubmitting}
+                  variant="outline"
                   colorScheme="teal"
                   type="submit"
                 >

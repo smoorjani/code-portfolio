@@ -18,7 +18,7 @@ export const CTA = () => (
       mx={2}
     >
       <Button width="100%" variant="outline" variantcolor="green">
-        View my website
+        view my website
       </Button>
     </ChakraLink>
 
@@ -29,7 +29,7 @@ export const CTA = () => (
       mx={2}
     >
       <Button width="100%" variant="solid" variantcolor="green">
-        View Repo
+        view repo
       </Button>
     </ChakraLink>
   </Container>
